@@ -2,10 +2,10 @@
 
 A c library to parse csv file.
 
-Support double quotes / non quoted string.
-Support one character separator (not including '"' and '\n').
-Support new line inside the content (not inside the header).
-Support two consecutive double quotes signifying a single double quotes.
+- Support double quotes / non quoted string.
+- Support one character separator (not including '"' and '\n').
+- Support new line inside the content (not inside the header).
+- Support two consecutive double quotes signifying a single double quotes.
 
 
 ## Table of Contents
@@ -25,9 +25,9 @@ make run
 
 ```
 
-the library includes are in the folder [src/include/simple_csv](src/include/simple_csv)
-the library source code are in the folder [src/c/simple_csv](src/c/simple_csv)
-the library depend of [easy_c_data_stucure](https://github.com/raiseFlaymeException/easy-c-data-structure) located in [src/include/easy_c_data_structure](src/include/easy_c_data_structure)
+- the library includes are in the folder [src/include/simple_csv](src/include/simple_csv)
+- the library source code are in the folder [src/c/simple_csv](src/c/simple_csv)
+- the library depend of [easy_c_data_stucure](https://github.com/raiseFlaymeException/easy-c-data-structure) located in [src/include/easy_c_data_structure](src/include/easy_c_data_structure)
 
 ## Usage
 
@@ -45,7 +45,7 @@ ScsvHashMapArr content = scsv_parse_entire_file(file, &headers, SEPARATOR);
 ```
 
 do stuff with the content / headers:
-see [easy_c_data_stucure](https://github.com/raiseFlaymeException/easy-c-data-structure
+see [easy_c_data_stucure](https://github.com/raiseFlaymeException/easy-c-data-structure)
 
 free the content and headers:
 ```c
