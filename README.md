@@ -19,10 +19,9 @@ A c library to parse csv file.
 
 ## Install
 
-compile and run the test program:
+compile and run a test program:
 ```cmd
-make run
-
+make run_<test program filename>
 ```
 
 - the library includes are in the folder [src/include/simple_csv](src/include/simple_csv)
@@ -60,7 +59,7 @@ ScsvHashMapArr_free(&content);
 
 ## Example
 
-A better example in the file [example.c](example.c)
+Better examples are in the folder [example](example)
 
 ## Maintainers
 

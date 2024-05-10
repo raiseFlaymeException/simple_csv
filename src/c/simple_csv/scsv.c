@@ -225,14 +225,14 @@ ScsvHashMapArr scsv_parse_entire_file(FILE *file, ScsvSStringArr *headers, char 
     return content;
 }
 
-void _ScsvSStringArr_free_rec(ScsvSStringArr *array) { // NOLINT
+void impl_ScsvSStringArr_free_rec(ScsvSStringArr *array) { // NOLINT
     for (size_t i=0; i<array->size; i++) {
         SString_free(array->data+i);
     }
     ScsvSStringArr_free(array);
 }
 
-void _ScsvHashMapArr_free_rec(ScsvHashMapArr *array) { // NOLINT
+void impl_ScsvHashMapArr_free_rec(ScsvHashMapArr *array) { // NOLINT
     for (size_t i=0; i<array->size; i++) {
         for (size_t j=0; j<array->data[i].size; j++) {
             if (array->data[i].data[j].value.type==SCSV_STR) {

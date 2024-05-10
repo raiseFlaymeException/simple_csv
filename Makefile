@@ -26,49 +26,35 @@ QUIET = > nul 2>&1
 
 LIB =
 
-all: bin/example.exe
+all: bin/dog_breed_info.exe bin/print_everything.exe
 
-bin/example.exe: example.o $(COMPILED)
-	$(CC) example.o $(COMPILED) -o bin/example.exe $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
+bin/dog_breed_info.exe: example/dog_breed_info.o $(COMPILED)
+	$(CC) example/dog_breed_info.o $(COMPILED) -o bin/dog_breed_info.exe $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
 
-.PHONY: example_debug
-example_debug: example.c $(SOURCES)
-	$(CC) -ggdb3 example.c $(SOURCES) -o bin/example_debug.exe $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
+.PHONY: dog_breed_info_debug
+dog_breed_info_debug: example/dog_breed_info.c $(SOURCES)
+	$(CC) -ggdb3 example/dog_breed_info.c $(SOURCES) -o bin/dog_breed_info_debug.exe $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
 
-.PHONY: example_preprocess
-example_preprocess: example.c $(COMPILED) $(SOURCES)
-	$(CC) -E $(SOURCES) $(COMPILED) $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD) $(OPTI) > bin/example.ipp
+.PHONY: run_dog_breed_info
+run_dog_breed_info: bin/dog_breed_info.exe
+	./bin/dog_breed_info.exe Beagle
 
-.PHONY: debug
-debug: example_debug
-	$(DEBUG) bin/example_debug.exe
+example/dog_breed_info.o: example/dog_breed_info.c
+	$(CC) -c example/dog_breed_info.c -o example/dog_breed_info.o -I $(HEADERDIR) $(WARNING) $(STANDARD)
 
-.PHONY: release_bin
-release_bin: example.c $(SOURCES)
-	$(CC) example.c $(SOURCES) -o bin/example_release.exe $(LIB) $(LIBC_CPP) -I $(HEADERDIR) -L $(LIBDIR) -D NDEBUG $(WARNING) $(STANDARD) $(OPTI)
+bin/print_everything.exe: example/print_everything.o $(COMPILED)
+	$(CC) example/print_everything.o $(COMPILED) -o bin/print_everything.exe $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
 
-.PHONY: run
-run: bin/example.exe
-	./bin/example.exe
+.PHONY: print_everything_debug
+print_everything_debug: example/print_everything.c $(SOURCES)
+	$(CC) -ggdb3 example/print_everything.c $(SOURCES) -o bin/print_everything_debug.exe $(LIB) -I $(HEADERDIR) -L $(LIBDIR) $(WARNING) $(STANDARD)
 
-.PHONY: rebuild
-rebuild: clean bin/example.exe
+.PHONY: run_print_everything
+run_print_everything: bin/print_everything.exe
+	./bin/print_everything.exe
 
-.PHONY: rerun
-rerun: clean run
-
-.PHONY: clang-tidy
-clang-tidy: $(INTERNAL_HEADERS) $(SOURCES)
-	clang-tidy $(INTERNAL_HEADERS) $(SOURCES)
-
-code-action: $(INTERNAL_HEADERS) $(SOURCES)
-	clang-tidy $(INTERNAL_HEADERS) $(SOURCES) -fix -fix-errors
-
-format: $(INTERNAL_HEADERS) $(SOURCES)
-	clang-format $(INTERNAL_HEADERS) $(SOURCES) -i
-
-example.o: example.c
-	$(CC) -c example.c -o example.o -I $(HEADERDIR) $(WARNING) $(STANDARD)
+example/print_everything.o: example/print_everything.c
+	$(CC) -c example/print_everything.c -o example/print_everything.o -I $(HEADERDIR) $(WARNING) $(STANDARD)
 
 src/c/%.o: src/c/%.c
 	$(CC) -c $< -o $@ -I $(HEADERDIR) $(WARNINGS) $(STANDARD)
@@ -76,12 +62,11 @@ src/c/%.o: src/c/%.c
 .PHONY: clean
 .SILENT: clean
 clean:
-	-del example.o $(QUIET)
+	-del example\dog_breed_info.o $(QUIET)
+	-del example\print_everything.o $(QUIET)
 	-del /S src\c\*.o $(QUIET)
 
 .PHONY: cleanmore
 .SILENT: cleanmore
 cleanmore: clean
 	-del bin\*.exe $(QUIET)
-
-	-del bin\example.ipp $(QUIET)
