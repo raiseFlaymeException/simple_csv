@@ -33,7 +33,7 @@ int main() {
         for (size_t j=0; j<headers.size; j++) {
             // all function on data structures are name_*
             ScsvValue value;
-            if (!ScsvHashMap_get(content.data+i, headers.data[j], &value)) {
+            if (!ScsvHashMap_get_ptr(content.data+i, headers.data+j, &value)) {
                 printf("invalid key get: %.*s\n", headers.data[j].size, headers.data[j].data);
                 return 1;
             }
